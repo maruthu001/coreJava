@@ -10,16 +10,25 @@ public class UserService {
 		UserDAO userdao = new UserDAO();
 
 		User[] UserList = userdao.findAll();
-		
-		
-		for (int i = 0;i<UserList.length;i++) {
-			System.out.println(UserList[i]);
-		}
-//		System.out.println(UserList[0]);
-		
-		
+
+		System.out.println(UserList[0]);
+
 		return UserList;
 
+	}
+
+	public void create() {
+
+		User newUser = new User();
+		newUser.setId(12345);
+		newUser.setFirstname("Maruthan");
+		newUser.setLastname("Alagar");
+		newUser.setEmail("maruthanalagar@gmail.com");
+		newUser.setPassword("Asdf@123");
+		newUser.setActive(true);
+
+		UserDAO userDAO = new UserDAO();
+		userDAO.create(newUser);
 	}
 
 }
