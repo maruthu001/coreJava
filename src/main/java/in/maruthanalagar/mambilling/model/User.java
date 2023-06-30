@@ -55,8 +55,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User Detils  Name = " + firstname +" "+ lastname + ", Email = " + email + ", Password = " + password
-				+ ", User id = " + id + ", isActive = " + isActive;
+		return "User Detils Name : " + firstname +" "+ lastname + ", Email : " + email + ", Password : " + password
+				+ ", User id : " + id + ", isActive : " + isActive;
 	}
 	String firstname;
 	String lastname;
