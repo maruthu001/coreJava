@@ -1,0 +1,6 @@
+in\maruthanalagar\mambilling\App.class
+in\maruthanalagar\mambilling\dao\UserDAO.class
+in\maruthanalagar\mambilling\dao\UserList.class
+in\maruthanalagar\mambilling\service\UserService.class
+in\maruthanalagar\mambilling\model\User.class
+in\maruthanalagar\mambilling\validation\UserValidator.class

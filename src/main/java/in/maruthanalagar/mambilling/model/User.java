@@ -44,7 +44,7 @@ public class User {
 	}
 
 	public boolean isActive() {
-		return isActive;
+		return isActive = true;
 	}
 
 	public void setActive(boolean isActive) {

@@ -1,7 +1,9 @@
 package in.maruthanalagar.mambilling.service;
 
+
 import in.maruthanalagar.mambilling.dao.UserDAO;
 import in.maruthanalagar.mambilling.model.User;
+import in.maruthanalagar.mambilling.validation.UserValidator;
 
 public class UserService {
 
@@ -24,29 +26,15 @@ public class UserService {
 
 	}
 
-	public void create() {
+	public void create(User user) throws Exception {
 
-		User newUser = new User();
+		UserValidator.validate(user);
+		
 		UserDAO userDAO = new UserDAO();
-		newUser.setId(12345);
-		newUser.setFirstname("Maruthan");
-		newUser.setLastname("Alagar");
-		newUser.setEmail("maruthanalagar@gmail.com");
-		newUser.setPassword("Asdf@123");
-		newUser.setActive(true);
-
-		userDAO.create(newUser);
-
-		User newUser1 = new User();
-
-		newUser1.setId(123456);
-		newUser1.setFirstname("Surya");
-		newUser1.setLastname("Umapathy");
-		newUser1.setEmail("suryaumathy@gmail.com");
-		newUser1.setPassword("Asdf@123");
-		newUser1.setActive(true);
-
-		userDAO.create(newUser1);
+		
+		userDAO.create(user);
+		
+		
 
 	}
 	public void update() {
