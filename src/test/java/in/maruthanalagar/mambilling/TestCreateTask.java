@@ -91,14 +91,14 @@ public class TestCreateTask {
 	}
 
 	@Test
-	public void testCreateTaskWithIdZero() {
+	public void testCreateTaskWithInvalidDate() {
 		TaskService taskService = new TaskService();
 		Exception exception = assertThrows(ValidationException.class, () -> {
 
 			Task newTask = new Task();
 
-			newTask.setTaskID(0);
-			String userInput = "23/07/2023";
+			newTask.setTaskID(99999);
+			String userInput = "23/07/2022";
 
 			newTask.setTaskName("Close The Door");
 			LocalDate convertedDate = TaskService.convertToDate(userInput);
@@ -107,32 +107,9 @@ public class TestCreateTask {
 
 			taskService.create(newTask);
 		});
-		String expectedMessage = "Task ID cannot be 0 or more than 99999";
+		String expectedMessage = "Due Date can not be in the Past";
 		String actualMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(actualMessage));
 	}
-
-	@Test
-	public void testCreateTaskWithIdMoreThanLimit() {
-		TaskService taskService = new TaskService();
-		Exception exception = assertThrows(ValidationException.class, () -> {
-
-			Task newTask = new Task();
-
-			newTask.setTaskID(999999);
-			String userInput = "23/07/2023";
-
-			newTask.setTaskName("Close The Door");
-			LocalDate convertedDate = TaskService.convertToDate(userInput);
-			newTask.setDueDate(convertedDate);
-			newTask.setActive(true);
-
-			taskService.create(newTask);
-		});
-		String expectedMessage = "Task ID cannot be 0 or more than 99999";
-		String actualMessage = exception.getMessage();
-		assertTrue(expectedMessage.equals(actualMessage));
-	}
-
 
 }

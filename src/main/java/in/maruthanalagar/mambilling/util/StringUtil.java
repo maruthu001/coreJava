@@ -1,5 +1,7 @@
 package in.maruthanalagar.mambilling.util;
 
+import java.time.LocalDate;
+
 import in.maruthanalagar.mambilling.exception.ValidationException;
 
 public class StringUtil {
@@ -9,10 +11,11 @@ public class StringUtil {
 			throw new ValidationException(inputName.concat(" cannot be Null or Empty"));
 		}
 	}
-	
-	public static void rejectIfInvalidInt(int input, String inputName) throws ValidationException {
-		if (input <= 0 || input > 99999) {
-			throw new ValidationException(inputName.concat(" cannot be 0 or more than 99999"));
+
+	public static void rejectIfInvalidDate(LocalDate date, String inputName) throws ValidationException {
+		LocalDate currentDate = LocalDate.now();
+		if (date.isBefore(currentDate)) {
+			throw new ValidationException(inputName.concat(" can not be in the Past"));
 		}
 	}
 
