@@ -9,6 +9,12 @@ public class StringUtil {
 			throw new ValidationException(inputName.concat(" cannot be Null or Empty"));
 		}
 	}
+	
+	public static void rejectIfInvalidInt(int input, String inputName) throws ValidationException {
+		if (input <= 0 || input > 99999) {
+			throw new ValidationException(inputName.concat(" cannot be 0 or more than 99999"));
+		}
+	}
 
 	public static boolean isValidString(String newString) {
 
