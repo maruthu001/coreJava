@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import in.maruthanalagar.mambilling.dao.TaskDAO;
+import in.maruthanalagar.mambilling.exception.ValidationException;
 import in.maruthanalagar.mambilling.model.Task;
 import in.maruthanalagar.mambilling.validation.TaskValidator;
 
@@ -49,9 +50,9 @@ public class TaskService {
 
 	}
 
-	public void update(Task updatedTask) {
+	public void update(Task updatedTask) throws ValidationException {
 
-//		TaskValidator.validate(updatedTask);
+		TaskValidator.validate(updatedTask);
 
 		TaskDAO taskDAO = new TaskDAO();
 
