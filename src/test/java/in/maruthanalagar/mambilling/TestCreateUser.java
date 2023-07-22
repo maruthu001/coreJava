@@ -82,7 +82,7 @@ public class TestCreateUser {
 		String actualMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(actualMessage));
 	}
-	
+
 	@Test
 	public void testCreateUserWithPasswordEmpty() {
 		UserService userService = new UserService();
@@ -103,7 +103,7 @@ public class TestCreateUser {
 		String actualMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(actualMessage));
 	}
-	
+
 	@Test
 	public void testCreateUserWithPasswordNull() {
 		UserService userService = new UserService();
@@ -124,6 +124,7 @@ public class TestCreateUser {
 		String actualMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(actualMessage));
 	}
+
 	@Test
 	public void testCreateUserWithFirstnameEmpty() {
 		UserService userService = new UserService();
@@ -144,10 +145,7 @@ public class TestCreateUser {
 		String actualMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(actualMessage));
 	}
-	
-	
-	
-	
+
 	@Test
 	public void testCreateUserWithFirstnameNull() {
 		UserService userService = new UserService();

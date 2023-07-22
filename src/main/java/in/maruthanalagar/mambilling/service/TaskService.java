@@ -2,6 +2,7 @@ package in.maruthanalagar.mambilling.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import in.maruthanalagar.mambilling.dao.TaskDAO;
 import in.maruthanalagar.mambilling.exception.ValidationException;
@@ -9,24 +10,7 @@ import in.maruthanalagar.mambilling.model.Task;
 import in.maruthanalagar.mambilling.validation.TaskValidator;
 
 public class TaskService {
-	public Task[] getAll() {
-
-		TaskDAO taskdao = new TaskDAO();
-
-		Task[] TaskList = taskdao.findAll();
-
-		for (int i = 0; i < 5; i++) {
-
-			if (TaskList[i] == null) {
-				System.out.println("???????? No Task Available ????????");
-				break;
-			}
-			System.out.println(TaskList[i]);
-		}
-
-		return TaskList;
-
-	}
+	TaskDAO taskDAO = new TaskDAO();
 
 	public static LocalDate convertToDate(String dateString) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -44,25 +28,19 @@ public class TaskService {
 
 		TaskValidator.validate(task);
 
-		TaskDAO taskDAO = new TaskDAO();
-
 		taskDAO.create(task);
 
 	}
 
-	public void update(Task updatedTask) throws ValidationException {
+	public void update(int id, Task updatedTask) throws ValidationException {
 
 		TaskValidator.validate(updatedTask);
 
-		TaskDAO taskDAO = new TaskDAO();
-
-		taskDAO.update(updatedTask);
+		taskDAO.update(id, updatedTask);
 
 	}
 
 	public void delete(int id) {
-
-		TaskDAO taskDAO = new TaskDAO();
 
 		taskDAO.delete(id);
 
@@ -70,9 +48,20 @@ public class TaskService {
 
 	public void findById(int id) {
 
-		TaskDAO taskDAO = new TaskDAO();
-
 		taskDAO.findById(id);
+
+	}
+
+	public int count() {
+		return taskDAO.count();
+
+	}
+
+	public List<Task> getAll() {
+
+		List<Task> TaskList = taskDAO.findAll();
+
+		return TaskList;
 
 	}
 

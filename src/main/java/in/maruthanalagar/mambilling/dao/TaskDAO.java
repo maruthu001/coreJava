@@ -1,84 +1,102 @@
 package in.maruthanalagar.mambilling.dao;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import in.maruthanalagar.mambilling.Interface.TaskInterface;
 import in.maruthanalagar.mambilling.model.Task;
 
-public class TaskDAO {
-	public Task[] findAll() {
-		Task[] taskList = TaskList.taskList;
-		return taskList;
-	}
+public class TaskDAO implements TaskInterface {
 
-	
 	public void create(Task newTask) {
 
-		Task[] taskList1 = TaskList.taskList;
+		List<Task> taskList1 = TaskList.taskList;
 
-		for (int i = 0; i < taskList1.length; i++) {
-			Task task1 = TaskList.taskList[i];
-			if (task1 == null) {
-				 TaskList.taskList[i] = newTask;
+		boolean taskExists = false;
+
+		Iterator<Task> iterator = taskList1.iterator();
+		while (iterator.hasNext()) {
+			Task existingTask = iterator.next();
+			if (existingTask == null) {
+				iterator.remove();
+				taskList1.add(newTask);
+				taskExists = true;
 				break;
 			}
-
 		}
 
-
-	}
-
-	public void update(Task updatedTask) {
-
-		Task[] taskList2 = TaskList.taskList;
-
-		for (int i = 0; i < taskList2.length; i++) {
-			Task task1 = taskList2[i];
-
-			if (task1 == null) {
-				continue;
-			}
-			if (task1.getTaskID() == updatedTask.getTaskID()) {
-				task1 = updatedTask;
-
-			}
-
+		if (!taskExists) {
+			taskList1.add(newTask);
 		}
 
 	}
-	
+
 	public void delete(int id) {
 
-		Task[] taskList3 = TaskList.taskList;
+		List<Task> taskList2 = TaskList.taskList;
 
-
-		for (int i = 0; i < taskList3.length; i++) {
-			Task task1 = taskList3[i];
-
-			if (task1 == null) {
-				continue;
+		Iterator<Task> iterator = taskList2.iterator();
+		while (iterator.hasNext()) {
+			Task existingTask = iterator.next();
+			if (existingTask.getTaskID() == id) {
+				existingTask.setActive(false);
+				break;
 			}
-			if (task1.getTaskID() == id) {
-				task1.setActive(false);
-
-			}
-
 		}
 
 	}
-	
-	
-	
-		public Task findById(int taskId) {
-			Task[] taskList4 = TaskList.taskList;
-			Task matchedTask = null;
 
-			for (int i = 0; i < taskList4.length; i++) {
-				Task task = taskList4[i];
-				if (task.getTaskID() == taskId) {
-					matchedTask = task;
-					break;
-				}
+	public Task findById(int taskId) {
+		List<Task> taskList4 = TaskList.taskList;
+		Task matchedTask = null;
+
+		for (Task newTask : taskList4) {
+			Task task = newTask;
+			if (task.getTaskID() == taskId) {
+				matchedTask = task;
+				break;
 			}
-			System.out.println(matchedTask);
-			return matchedTask;
 		}
+		System.out.println(matchedTask);
+		return matchedTask;
+	}
+
+	@Override
+	public void update(int id, Task t) {
+		List<Task> taskList2 = TaskList.taskList;
+		Iterator<Task> iterator = taskList2.iterator();
+		while (iterator.hasNext()) {
+			Task existingTask = iterator.next();
+			if (existingTask.getTaskID() == id) {
+				iterator.remove();
+				taskList2.add(t);
+				break;
+			}
+		}
+
+	}
+
+	@Override
+	public int count() {
+
+		int count = 0;
+		List<Task> taskList2 = TaskList.taskList;
+		Iterator<Task> iterator = taskList2.iterator();
+		while (iterator.hasNext()) {
+			Task existingTask = iterator.next();
+			if (existingTask != null) {
+
+				count++;
+			}
+		}
+		return count;
+	}
+
+	public List<Task> findAll() {
+
+		return TaskList.taskList;
+	}
 
 }

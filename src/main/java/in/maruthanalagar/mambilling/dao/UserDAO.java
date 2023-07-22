@@ -1,64 +1,82 @@
 package in.maruthanalagar.mambilling.dao;
 
+import java.util.Iterator;
+import java.util.List;
+
+import in.maruthanalagar.mambilling.Interface.UserInterface;
 import in.maruthanalagar.mambilling.model.User;
 
-public class UserDAO {
+public class UserDAO implements UserInterface {
 
-	public User[] findAll() {
-		User[] userList = UserList.ListOfUsers;
-		return userList;
-	}
+	@Override
+	public void create(User user) {
 
-	/**
-	 * 
-	 * @param newUser
-	 */
-	public void create(User newUser) {
+		List<User> userList = UserList.ListOfUsers;
 
-		User[] userList1 = UserList.ListOfUsers;
+		boolean userExists = false;
 
-		for (int i = 0; i < userList1.length; i++) {
-			User user1 = UserList.ListOfUsers[i];
-			if (user1 == null) {
-				UserList.ListOfUsers[i] = newUser;
+		Iterator<User> iterator = userList.iterator();
+		while (iterator.hasNext()) {
+			User existingUser = iterator.next();
+			if (existingUser == null) {
+				iterator.remove();
+				userList.add(user);
+				userExists = true;
 				break;
 			}
-
 		}
 
-//		UserList.ListOfUsers[1] = newUser;
+		if (!userExists) {
+			userList.add(user);
+		}
 	}
 
-	public void update(User updatedUser) {
+	public User findById(int userId) {
+		List<User> userList = UserList.ListOfUsers;
+		User matchedUser = null;
 
-		User[] userList2 = UserList.ListOfUsers;
+		for (User newUser : userList) {
 
-		for (int i = 0; i < userList2.length; i++) {
-			User user1 = userList2[i];
+			User user = newUser;
+			if (user.getId() == userId) {
+				matchedUser = user;
+				break;
+			}
+		}
+		System.out.println(matchedUser);
+		return matchedUser;
+	}
+
+	public User findByEmail(String userEmail) {
+		List<User> userList = UserList.ListOfUsers;
+		User userMatch = null;
+
+		for (User newUser : userList) {
+			User user = newUser;
+
+			if (user == null) {
+				System.out.println("User Details is Not There");
+				break;
+			}
+			if (user.getEmail().equals(userEmail)) {
+				userMatch = user;
+				break;
+			}
+		}
+		System.out.println(userMatch);
+		return userMatch;
+	}
+
+	@Override
+	public void delete(int newId) {
+		List<User> userList2 = UserList.ListOfUsers;
+		for (User newUser : userList2) {
+			User user1 = newUser;
 
 			if (user1 == null) {
 				continue;
 			}
-			if (user1.getId() == updatedUser.getId()) {
-				user1 = updatedUser;
-
-			}
-
-		}
-
-	}
-	
-	public void delete(int id) {
-
-		User[] userList2 = UserList.ListOfUsers;
-
-		for (int i = 0; i < userList2.length; i++) {
-			User user1 = userList2[i];
-
-			if (user1 == null) {
-				continue;
-			}
-			if (user1.getId() == id) {
+			if (user1.getId() == newId) {
 				user1.setActive(false);
 
 			}
@@ -66,46 +84,36 @@ public class UserDAO {
 		}
 
 	}
-	
-	
-	
-		public User findById(int userId) {
-			User[] userList3 = UserList.ListOfUsers;
-			User matchedUser = null;
 
-			for (int i = 0; i < userList3.length; i++) {
-				User user = userList3[i];
-				if (user.getId() == userId) {
-					matchedUser = user;
-					break;
-				}
-			}
-			System.out.println(matchedUser);
-			return matchedUser;
+	@Override
+	public int count() {
+		List<User> userList3 = UserList.ListOfUsers;
+		int count = 0;
+		for (User newUser : userList3) {
+			User user1 = newUser;
+			count++;
 		}
-		
-		
-		public User findByEmail(String userEmail) {
-			User[] userList4 = UserList.ListOfUsers;
-			User userMatch = null;
+		return count;
+	}
 
-			for (int i = 0; i < userList4.length; i++) {
-				User user = userList4[i];
-				
-				if(user==null) {
-					System.out.println("User Details is Not There");
-					break;
-				}
-				if (user.getEmail().equals(userEmail)) {
-					userMatch = user;
-					break;
-				}
+	@Override
+	public void update(int id, User newUser) {
+		List<User> userList = UserList.ListOfUsers;
+
+		Iterator<User> iterator = userList.iterator();
+		while (iterator.hasNext()) {
+			User existingUser = iterator.next();
+			if (existingUser.getId() == id) {
+				iterator.remove();
+				userList.add(newUser);
+				break;
 			}
-			System.out.println(userMatch);
-			return userMatch;
 		}
-		
-	
-	
+	}
+
+	public List<User> findAll() {
+		return UserList.ListOfUsers;
+
+	}
 
 }
