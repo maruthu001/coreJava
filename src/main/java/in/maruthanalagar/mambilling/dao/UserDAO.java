@@ -165,18 +165,43 @@ public class UserDAO implements UserInterface {
 	}
 
 	@Override
-	public void update(int id, User newUser) {
-		List<User> userList = UserList.ListOfUsers;
-
-		Iterator<User> iterator = userList.iterator();
-		while (iterator.hasNext()) {
-			User existingUser = iterator.next();
-			if (existingUser.getId() == id) {
-				iterator.remove();
-				userList.add(newUser);
-				break;
-			}
-		}
+	public void update(int id, User t) {
+		// TODO Auto-generated method stub
+		
 	}
+
+//	@Override
+//	public void update(int id, User newUser) {
+//		Connection con = null;
+//		PreparedStatement ps = null;
+//
+//		try {
+//			String query = "INSERT into users ( first_name, last_name, email, password) VALUES ( ?, ?, ?, ? );";
+//			con = ConnectionUtil.getConnection();
+//			ps = con.prepareStatement(query);
+//			ps.setString(1, user.getFirstname());
+//			ps.setString(2, user.getLastname());
+//			ps.setString(3, user.getEmail());
+//			ps.setString(4, user.getPassword());
+//
+//			ps.executeUpdate();
+//
+//			System.out.println("User Successfully Created :)");
+//
+//		} catch (SQLException e) {
+//			// e.printStackTrace();
+//			if (e.getMessage().contains("Duplicate entry")) {
+//				throw new RuntimeException("Duplicate constraint");
+//			} else {
+//				System.out.println(e.getMessage());
+//				throw new RuntimeException(e);
+//			}
+//
+//		} finally {
+//			ConnectionUtil.close(con, ps);
+//		}
+//
+//		
+//	}
 
 }
