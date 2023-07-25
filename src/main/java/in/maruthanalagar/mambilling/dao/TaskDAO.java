@@ -104,7 +104,7 @@ public class TaskDAO implements TaskInterface {
 		return newTask;
 	}
 
-	@Override
+
 	public void update(int id, Task t) {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -138,18 +138,31 @@ public class TaskDAO implements TaskInterface {
 
 	
 
-	@Override
+
 	public int count() {
 
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 		int count = 0;
-		List<Task> taskList2 = TaskList.taskList;
-		Iterator<Task> iterator = taskList2.iterator();
-		while (iterator.hasNext()) {
-			Task existingTask = iterator.next();
-			if (existingTask != null) {
 
+		
+		try {
+			String query = "SELECT * FROM tasks Where is_active = 1";
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement(query);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
 				count++;
+				
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new RuntimeException(e);
+		} finally {
+			ConnectionUtil.close(con, ps, rs);
 		}
 		return count;
 	}

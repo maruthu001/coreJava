@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import in.maruthanalagar.mambilling.model.Task;
 import in.maruthanalagar.mambilling.service.TaskService;
+import in.maruthanalagar.mambilling.service.UserService;
 
 
 public class TestGetAllTasks {
@@ -32,6 +33,14 @@ public class TestGetAllTasks {
 		LocalDate convertedDate2 = TaskService.convertToDate(userInput2);
 		List<Task> finalTask = taskService.getByDate(convertedDate2);
 		System.out.println(finalTask);
+		
+	}
+	@Test
+	public void counting() {
+		TaskService taskService = new TaskService();
+		
+		
+		System.out.println(taskService.count());
 		
 	}
 }

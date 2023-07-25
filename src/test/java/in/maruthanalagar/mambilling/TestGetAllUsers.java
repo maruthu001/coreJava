@@ -23,5 +23,21 @@ public class TestGetAllUsers {
 		System.out.println(userService.getAll());
 
 	}
+	@Test
+	public void findByEmailId() {
+		UserService userService = new UserService();
+		
+		User finalUser = userService.findByEmail("amaruthanalagar@gmail.com");
+		System.out.println(finalUser);
+		
+	}
+	@Test
+	public void counting() {
+		UserService userService = new UserService();
+		
+		
+		System.out.println(userService.count());
+		
+	}
 
 }

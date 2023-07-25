@@ -48,7 +48,6 @@ public class UserDAO implements UserInterface {
 
 	}
 
-	@Override
 	public void create(User user) {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -116,26 +115,40 @@ public class UserDAO implements UserInterface {
 	}
 
 	public User findByEmail(String userEmail) {
-		List<User> userList = UserList.ListOfUsers;
-		User userMatch = null;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 
-		for (User newUser : userList) {
-			User user = newUser;
+		User user = null;
 
-			if (user == null) {
-				System.out.println("User Details is Not There");
-				break;
+		try {
+			String query = "SELECT * FROM users  WHERE is_active = 1 and email = ? ";
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement(query);
+			ps.setString(1, userEmail);
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				user = new User();
+				user.setId(rs.getInt("id"));
+				user.setFirstname(rs.getString("first_name"));
+				user.setLastname(rs.getString("last_name"));
+				user.setEmail(rs.getString("email"));
+				user.setActive(rs.getBoolean("is_active"));
 			}
-			if (user.getEmail().equals(userEmail)) {
-				userMatch = user;
-				break;
-			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new RuntimeException(e);
+		} finally {
+			ConnectionUtil.close(con, ps, rs);
 		}
-		System.out.println(userMatch);
-		return userMatch;
+
+		return user;
 	}
 
-	@Override
+	
 	public void delete(int newId) {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -162,18 +175,36 @@ public class UserDAO implements UserInterface {
 
 	}
 
-	@Override
+	
 	public int count() {
-		List<User> userList3 = UserList.ListOfUsers;
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 		int count = 0;
-		for (User newUser : userList3) {
-			User user1 = newUser;
-			count++;
+
+		List<User> userList = new ArrayList<User>();
+		try {
+			String query = "SELECT * FROM users Where is_active = 1";
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement(query);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				count++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new RuntimeException(e);
+		} finally {
+			ConnectionUtil.close(con, ps, rs);
 		}
 		return count;
-	}
 
-	@Override
+	}
+	
+
+	
 	public void update(int id, User newUser) {
 		Connection con = null;
 		PreparedStatement ps = null;

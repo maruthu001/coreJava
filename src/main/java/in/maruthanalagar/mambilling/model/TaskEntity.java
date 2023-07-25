@@ -35,7 +35,7 @@ public abstract class TaskEntity implements Comparable<TaskEntity> {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	@Override
+
 	public String toString() {
 		return "Task : Task ID = " + taskID + ", Task Name = " + taskName + ", Due Date = " + dueDate + ", Is Active = " + isActive;
 	}
