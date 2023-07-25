@@ -20,7 +20,7 @@ public class TestCreateUser {
 		
 		newUser.setFirstname("Maruthan");
 		newUser.setLastname("Alagar");
-		newUser.setEmail("amaruthan@gmail.com");
+		newUser.setEmail("maruthanDivya@gmail.com");
 		newUser.setPassword("Asdf@123");
 		
 
@@ -92,7 +92,7 @@ public class TestCreateUser {
 		
 			newUser.setFirstname("Maruthan");
 			newUser.setLastname("Alagar");
-			newUser.setEmail("maruthan@gmail.com");
+			newUser.setEmail("amaruthanDivya@gmail.com");
 			newUser.setPassword("Asdf@123");
 		
 

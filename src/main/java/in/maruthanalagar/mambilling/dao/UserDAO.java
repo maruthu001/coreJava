@@ -137,19 +137,28 @@ public class UserDAO implements UserInterface {
 
 	@Override
 	public void delete(int newId) {
-		List<User> userList2 = UserList.ListOfUsers;
-		for (User newUser : userList2) {
-			User user1 = newUser;
+		Connection con = null;
+		PreparedStatement ps = null;
 
-			if (user1 == null) {
-				continue;
-			}
-			if (user1.getId() == newId) {
-				user1.setActive(false);
+		try {
+			String query = "UPDATE users SET is_active = false Where id = ? and is_active = true ";
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement(query);
+			
+			ps.setInt(1,newId);
 
-			}
+			ps.executeUpdate();
 
+			System.out.println("User Successfully Deleted :)");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new RuntimeException(e);
+		} finally {
+			ConnectionUtil.close(con, ps);
 		}
+
 
 	}
 
@@ -165,43 +174,31 @@ public class UserDAO implements UserInterface {
 	}
 
 	@Override
-	public void update(int id, User t) {
-		// TODO Auto-generated method stub
+	public void update(int id, User newUser) {
+		Connection con = null;
+		PreparedStatement ps = null;
+
+		try {
+			String query = "UPDATE users SET first_name = ?,last_name = ? Where id = ?";
+			con = ConnectionUtil.getConnection();
+			ps = con.prepareStatement(query);
+			ps.setString(1, newUser.getFirstname());
+			ps.setString(2, newUser.getLastname());
+			ps.setInt(3,id);
+
+			ps.executeUpdate();
+
+			System.out.println("User Successfully Updated :)");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+			throw new RuntimeException(e);
+		} finally {
+			ConnectionUtil.close(con, ps);
+		}
+
 		
 	}
-
-//	@Override
-//	public void update(int id, User newUser) {
-//		Connection con = null;
-//		PreparedStatement ps = null;
-//
-//		try {
-//			String query = "INSERT into users ( first_name, last_name, email, password) VALUES ( ?, ?, ?, ? );";
-//			con = ConnectionUtil.getConnection();
-//			ps = con.prepareStatement(query);
-//			ps.setString(1, user.getFirstname());
-//			ps.setString(2, user.getLastname());
-//			ps.setString(3, user.getEmail());
-//			ps.setString(4, user.getPassword());
-//
-//			ps.executeUpdate();
-//
-//			System.out.println("User Successfully Created :)");
-//
-//		} catch (SQLException e) {
-//			// e.printStackTrace();
-//			if (e.getMessage().contains("Duplicate entry")) {
-//				throw new RuntimeException("Duplicate constraint");
-//			} else {
-//				System.out.println(e.getMessage());
-//				throw new RuntimeException(e);
-//			}
-//
-//		} finally {
-//			ConnectionUtil.close(con, ps);
-//		}
-//
-//		
-//	}
 
 }

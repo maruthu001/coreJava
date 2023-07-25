@@ -21,13 +21,11 @@ public class TestCreateTask {
 
 		Task newTask = new Task();
 
-		newTask.setTaskID(12345);
 		String userInput = "27/07/2023";
 
 		newTask.setTaskName("Open");
 		LocalDate convertedDate = TaskService.convertToDate(userInput);
 		newTask.setDueDate(convertedDate);
-		newTask.setActive(true);
 
 		assertDoesNotThrow(() -> {
 			taskService.create(newTask);
@@ -75,7 +73,6 @@ public class TestCreateTask {
 
 			Task newTask = new Task();
 
-			newTask.setTaskID(12345);
 			String userInput = "23/07/2023";
 
 			newTask.setTaskName("");

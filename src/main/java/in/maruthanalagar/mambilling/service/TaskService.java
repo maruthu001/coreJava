@@ -1,7 +1,11 @@
 package in.maruthanalagar.mambilling.service;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 import in.maruthanalagar.mambilling.dao.TaskDAO;
@@ -23,6 +27,19 @@ public class TaskService {
 			return null;
 		}
 	}
+	
+	public static Date convertDate(LocalDate newDate) {
+	    LocalDateTime localDateTime = newDate.atStartOfDay();
+        Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        return date;
+	
+	}
+	
+	public static LocalDate convertSqlDateToLocalDate(Date sqlDate) {
+		java.sql.Date c = (java.sql.Date) sqlDate;
+		java.util.Date utilDate = new java.util.Date(c.getTime());
+		 return utilDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
 
 	public void create(Task task) throws Exception {
 
@@ -46,9 +63,9 @@ public class TaskService {
 
 	}
 
-	public void findById(int id) {
+	public Task findById(int id) {
 
-		taskDAO.findById(id);
+		return taskDAO.findById(id);
 
 	}
 
@@ -63,6 +80,13 @@ public class TaskService {
 
 		return TaskList;
 
+	}
+	
+	public List<Task> getByDate(LocalDate date){
+		List<Task> TaskList = taskDAO.findByDate(date);
+
+		return TaskList;
+		
 	}
 
 }
