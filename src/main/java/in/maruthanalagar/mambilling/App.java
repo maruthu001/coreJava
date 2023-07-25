@@ -43,9 +43,9 @@ public class App {
 			newService.create(newUser2);
 			newService.findById(103);
 
-			// Find By Email
-			System.out.print("User Find By Email   =  ");
-			newService.findByEmail("amaruthan@apple.com");
+//			// Find By Email
+//			System.out.print("User Find By Email   =  ");
+//			newService.findByEmail("amaruthan@apple.com");
 
 			// Get All Method
 			System.out.print("Get All Method  =  ");
@@ -68,7 +68,7 @@ public class App {
 		TaskService taskService = new TaskService();
 
 		try {
-			String userInput = "23/07/2023";
+			String userInput = "29/07/2023";
 			LocalDate convertedDate = TaskService.convertToDate(userInput);
 			String userInput1 = "25/08/2023";
 			LocalDate convertedDate1 = TaskService.convertToDate(userInput1);

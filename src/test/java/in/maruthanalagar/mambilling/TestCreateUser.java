@@ -17,12 +17,12 @@ public class TestCreateUser {
 
 		User newUser = new User();
 
-		newUser.setId(12345);
+		
 		newUser.setFirstname("Maruthan");
 		newUser.setLastname("Alagar");
-		newUser.setEmail("maruthanalagar@gmail.com");
+		newUser.setEmail("amaruthan@gmail.com");
 		newUser.setPassword("Asdf@123");
-		newUser.setActive(true);
+		
 
 		assertDoesNotThrow(() -> {
 			userService.create(newUser);
@@ -79,6 +79,26 @@ public class TestCreateUser {
 			userService.create(newUser);
 		});
 		String expectedMessage = "Email cannot be Null or Empty";
+		String actualMessage = exception.getMessage();
+		assertTrue(expectedMessage.equals(actualMessage));
+	}
+	@Test
+	public void testCreateUserWithExistingEmail() {
+		UserService userService = new UserService();
+		Exception exception = assertThrows(RuntimeException.class, () -> {
+
+			User newUser = new User();
+
+		
+			newUser.setFirstname("Maruthan");
+			newUser.setLastname("Alagar");
+			newUser.setEmail("maruthan@gmail.com");
+			newUser.setPassword("Asdf@123");
+		
+
+			userService.create(newUser);
+		});
+		String expectedMessage = "Duplicate constraint";
 		String actualMessage = exception.getMessage();
 		assertTrue(expectedMessage.equals(actualMessage));
 	}
