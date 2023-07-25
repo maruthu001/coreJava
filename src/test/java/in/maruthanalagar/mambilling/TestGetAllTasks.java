@@ -20,7 +20,7 @@ public class TestGetAllTasks {
 		
 	}
 	@Test
-	public void getAllUsers() {
+	public void getAllTasks() {
 		TaskService taskService = new TaskService();
 		System.out.println(taskService.getAll());
 

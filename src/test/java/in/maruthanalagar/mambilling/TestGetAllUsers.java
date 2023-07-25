@@ -13,7 +13,7 @@ public class TestGetAllUsers {
 	public void findById() {
 		UserService userService = new UserService();
 		
-		User finalUser = userService.findById(1);
+		User finalUser = userService.findById(10);
 		System.out.println(finalUser);
 		
 	}
@@ -27,7 +27,7 @@ public class TestGetAllUsers {
 	public void findByEmailId() {
 		UserService userService = new UserService();
 		
-		User finalUser = userService.findByEmail("amaruthanalagar@gmail.com");
+		User finalUser = userService.findByEmail("srvignesh@gmail.com");
 		System.out.println(finalUser);
 		
 	}
